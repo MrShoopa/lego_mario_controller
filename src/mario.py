@@ -7,8 +7,11 @@ from bleak import BleakScanner, BleakClient
 
 # Key assignments
 KEY_JUMP = 'a'
-KEY_LEAN_FORWARD = Key.right
-KEY_LEAN_BACKWARD = Key.left
+KEY_LEAN_FORWARD = Key.up
+KEY_LEAN_BACKWARD = Key.down
+KEY_LEAN_LEFT = Key.left
+KEY_LEAN_RIGHT = Key.right
+
 KEY_RED_TILE = 'b'
 KEY_GREEN_TILE = Key.down
 
@@ -91,14 +94,27 @@ class MarioController:
                 await asyncio.sleep(BUTTON_TIME_DEFAULT)
                 self.keyboard.release(KEY_GREEN_TILE)
                 self.current_tile = 0
-            if self.current_z > 10:
+
+            # Front/Back
+            if self.current_z > 5:
                 self.keyboard.press(KEY_LEAN_BACKWARD)
-            elif self.current_z < -10:
+            elif self.current_z < -5:
                 self.keyboard.press(KEY_LEAN_FORWARD)
             else:
                 self.keyboard.release(KEY_LEAN_BACKWARD)
                 self.keyboard.release(KEY_LEAN_FORWARD)
-            if self.current_x > 5:
+
+            # Left/Right
+            if self.current_x > 10:
+                self.keyboard.press(KEY_LEAN_RIGHT)
+            elif self.current_x < -5:
+                self.keyboard.press(KEY_LEAN_LEFT)
+            else:
+                self.keyboard.release(KEY_LEAN_LEFT)
+                self.keyboard.release(KEY_LEAN_RIGHT)
+
+            # Jump
+            if self.current_x > 5 and self.current_x < 10:
                 self.keyboard.press(KEY_JUMP)
                 await asyncio.sleep(BUTTON_TIME_JUMP)
                 self.keyboard.release(KEY_JUMP)
