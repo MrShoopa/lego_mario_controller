@@ -7,10 +7,10 @@ from bleak import BleakScanner, BleakClient
 
 # Key assignments
 KEY_JUMP = 'a'
-KEY_LEAN_FORWARD = Key.up
-KEY_LEAN_BACKWARD = Key.down
-KEY_LEAN_LEFT = Key.left
-KEY_LEAN_RIGHT = Key.right
+KEY_LEAN_FORWARD = 'w'
+KEY_LEAN_BACKWARD = 's'
+KEY_LEAN_LEFT = 'a'
+KEY_LEAN_RIGHT = 'd'
 
 KEY_RED_TILE = 'b'
 KEY_GREEN_TILE = Key.down
